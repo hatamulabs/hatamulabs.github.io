@@ -228,7 +228,7 @@
                         <div class="project-description">${escapeHtml(description)}</div>
                         <div class="project-meta">
                             <div class="project-meta-line">Created: ${formatDate(project.created)}</div>
-                            <div class="project-meta-line">Last updated: ${formatDate(lastUpdated)} (${formatTimestamp(lastUpdated)})</div>
+                            <div class="project-meta-line">Last updated: ${formatDate(lastUpdated)} (${formatGMTTimestamp(lastUpdated)})</div>
                             <div class="project-meta-line">Status: <span class="status ${statusClass}">${escapeHtml(project.status)}</span></div>
                         </div>
                     `;
@@ -264,27 +264,14 @@
             });
         }
 
-        function formatTimestamp(dateString) {
+        function formatGMTTimestamp(dateString) {
             const date = new Date(dateString);
-            const now = new Date();
-            const diffMs = now - date;
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
-
-            if (diffMins < 60) {
-                return diffMins === 1 ? '1 minute ago' : `${diffMins} minutes ago`;
-            } else if (diffHours < 24) {
-                return diffHours === 1 ? '1 hour ago' : `${diffHours} hours ago`;
-            } else if (diffDays < 30) {
-                return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`;
-            } else {
-                return date.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-            }
+            const year = date.getUTCFullYear();
+            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(date.getUTCDate()).padStart(2, '0');
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes} GMT`;
         }
 
         function escapeHtml(text) {

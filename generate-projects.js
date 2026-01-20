@@ -62,15 +62,15 @@ function getProjectDescription(projectPath) {
                     .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove links
                     .replace(/`/g, '');   // Remove code formatting
 
-                // Truncate to ~10 words (60-70 characters)
+                // Truncate to ~10 words (60-70 characters) without ellipsis
                 if (description.length > 70) {
                     // Try to break at word boundary
                     const truncated = description.substring(0, 67);
                     const lastSpace = truncated.lastIndexOf(' ');
                     if (lastSpace > 40) {
-                        description = truncated.substring(0, lastSpace) + '...';
+                        description = truncated.substring(0, lastSpace);
                     } else {
-                        description = truncated + '...';
+                        description = truncated;
                     }
                 }
 
