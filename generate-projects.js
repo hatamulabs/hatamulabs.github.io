@@ -25,6 +25,59 @@ function getGitCreationDate(projectPath) {
     }
 }
 
+function getProjectDescription(projectPath) {
+    try {
+        const readmePath = path.join(projectPath, 'README.md');
+        if (!fs.existsSync(readmePath)) {
+            return 'No description available.';
+        }
+
+        const content = fs.readFileSync(readmePath, 'utf-8');
+        const lines = content.split('\n');
+
+        // Look for the first substantial paragraph after the title
+        // Skip the title line (starts with #) and empty lines
+        let foundTitle = false;
+        for (const line of lines) {
+            const trimmed = line.trim();
+
+            // Skip title
+            if (trimmed.startsWith('#')) {
+                foundTitle = true;
+                continue;
+            }
+
+            // Skip empty lines
+            if (!trimmed) continue;
+
+            // Skip lines that are just markdown formatting
+            if (trimmed.startsWith('```') || trimmed.startsWith('---')) continue;
+
+            // Found a substantial line - use it as description
+            if (foundTitle && trimmed.length > 10) {
+                // Remove markdown formatting and trim to one line
+                let description = trimmed
+                    .replace(/\*\*/g, '') // Remove bold
+                    .replace(/\*/g, '')   // Remove italic
+                    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove links
+                    .replace(/`/g, '');   // Remove code formatting
+
+                // Truncate if too long
+                if (description.length > 120) {
+                    description = description.substring(0, 117) + '...';
+                }
+
+                return description;
+            }
+        }
+
+        return 'No description available.';
+    } catch (error) {
+        console.warn(`Could not get description for ${projectPath}`);
+        return 'No description available.';
+    }
+}
+
 function getProjectStatus(projectPath) {
     try {
         // Check if there's a progress file
@@ -70,6 +123,19 @@ function getProjectStatus(projectPath) {
     }
 }
 
+function getGitLastUpdatedDate(projectPath) {
+    try {
+        const date = execSync(
+            'git log -1 --format=%aI',
+            { cwd: projectPath, encoding: 'utf-8' }
+        ).trim();
+        return date || new Date().toISOString();
+    } catch (error) {
+        console.warn(`Could not get last updated date for ${projectPath}`);
+        return new Date().toISOString();
+    }
+}
+
 function scanProjects() {
     const projects = [];
 
@@ -96,11 +162,15 @@ function scanProjects() {
 
             // Get project metadata
             const created = getGitCreationDate(projectPath);
+            const lastUpdated = getGitLastUpdatedDate(projectPath);
             const status = getProjectStatus(projectPath);
+            const description = getProjectDescription(projectPath);
 
             projects.push({
                 name: projectName,
+                description: description,
                 created: created,
+                lastUpdated: lastUpdated,
                 status: status
             });
         }

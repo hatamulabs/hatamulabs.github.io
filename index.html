@@ -83,7 +83,14 @@
         .project-name {
             font-size: 1.1em;
             font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .project-description {
+            color: #333;
+            font-size: 0.95em;
             margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         .project-meta {
@@ -214,9 +221,11 @@
 
                     const statusClass = getStatusClass(project.status);
                     const lastUpdated = project.lastUpdated || project.created;
+                    const description = project.description || 'No description available.';
 
                     div.innerHTML = `
                         <div class="project-name">${escapeHtml(project.name)}</div>
+                        <div class="project-description">${escapeHtml(description)}</div>
                         <div class="project-meta">
                             <div class="project-meta-line">Created: ${formatDate(project.created)}</div>
                             <div class="project-meta-line">Last updated: ${formatDate(lastUpdated)} (${formatTimestamp(lastUpdated)})</div>
