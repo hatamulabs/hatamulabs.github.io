@@ -5,7 +5,10 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 // Path to the Fabricator projects directory
-const PROJECTS_DIR = path.resolve(__dirname, '..');
+// Can be overridden via PROJECTS_DIR environment variable
+const PROJECTS_DIR = process.env.PROJECTS_DIR
+    ? path.resolve(process.env.PROJECTS_DIR)
+    : path.resolve(__dirname, '..');
 const OUTPUT_FILE = path.join(__dirname, 'projects.json');
 
 function getGitCreationDate(projectPath) {

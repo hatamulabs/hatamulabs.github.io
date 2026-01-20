@@ -40,16 +40,32 @@ This will scan all projects and update `projects.json`.
 
 This site is deployed to GitHub Pages at `hatamulabs.github.io`.
 
-### Workflow
+### Automated Updates
 
-Since this is a Git submodule of the Fabricator project:
+A GitHub Actions workflow runs daily to automatically update the projects list:
 
-1. When projects are added/updated in Fabricator, run `npm run build` from this directory to regenerate `projects.json`
-2. Commit the updated `projects.json` file
-3. Push to the repository
-4. GitHub Pages will automatically deploy the updated site
+1. The workflow checks out the parent Fabricator repository
+2. Scans all projects and regenerates `projects.json`
+3. Commits and pushes changes if projects have been added/updated
+4. GitHub Pages automatically deploys the updated site
 
-**Note:** The `projects.json` file is committed to the repository. You need to manually rebuild it when projects change in the parent Fabricator repository.
+### GitHub Secrets Required
+
+For the automated workflow to work, configure these repository secrets:
+
+- `FABRICATOR_REPO`: The full repository path (e.g., `username/fabricator`)
+- `FABRICATOR_TOKEN`: A personal access token with repo access to the Fabricator repository
+
+### Manual Updates
+
+You can also manually trigger the workflow from the Actions tab or run locally:
+
+```bash
+npm run build
+git add projects.json
+git commit -m "[chore] Update projects list"
+git push
+```
 
 ## Development
 
