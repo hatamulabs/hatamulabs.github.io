@@ -2,21 +2,25 @@
   {
     "name": "nobam",
     "created": "2026-01-20T12:53:44+08:00",
+    "lastUpdated": "2026-01-20T12:53:44+08:00",
     "status": "In Development"
   },
   {
     "name": "flow-matching-mnist",
     "created": "2026-01-20T12:22:44+08:00",
+    "lastUpdated": "2026-01-20T12:22:44+08:00",
     "status": "In Development"
   },
   {
     "name": "example-test-generator",
     "created": "2026-01-20T12:12:58+08:00",
+    "lastUpdated": "2026-01-20T12:12:58+08:00",
     "status": "In Development"
   },
   {
     "name": "haha-generator",
     "created": "2026-01-20T11:46:46+08:00",
+    "lastUpdated": "2026-01-20T11:46:46+08:00",
     "status": "In Development"
   }
 ]

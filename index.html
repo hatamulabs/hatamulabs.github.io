@@ -57,18 +57,22 @@
             border-top: 1px solid #ddd;
         }
 
-        .contact a {
-            color: #000;
+        a {
+            color: #0066cc;
             text-decoration: underline;
         }
 
-        .contact a:hover {
-            color: #555;
+        a:hover {
+            color: #0052a3;
+        }
+
+        .contact a {
+            color: #0066cc;
         }
 
         .project {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
             border-bottom: 1px solid #eee;
         }
 
@@ -79,12 +83,45 @@
         .project-name {
             font-size: 1.1em;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .project-meta {
             color: #666;
-            font-size: 0.95em;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .project-meta-line {
+            margin-bottom: 4px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-development {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-archived {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-planning {
+            background: #d1ecf1;
+            color: #0c5460;
         }
 
         .loading {
@@ -118,6 +155,13 @@
     </header>
 
     <main>
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="projects-container" class="loading">
+                Loading projects...
+            </div>
+        </section>
+
         <section id="about">
             <h2>About</h2>
             <div class="about-content">
@@ -135,13 +179,6 @@
                 <div class="contact">
                     <strong>Contact:</strong> <a href="mailto:hatamulabs@gmail.com">hatamulabs@gmail.com</a>
                 </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>Projects</h2>
-            <div id="projects-container" class="loading">
-                Loading projects...
             </div>
         </section>
     </main>
@@ -169,10 +206,15 @@
                     const div = document.createElement('div');
                     div.className = 'project';
 
+                    const statusClass = getStatusClass(project.status);
+                    const lastUpdated = project.lastUpdated || project.created;
+
                     div.innerHTML = `
                         <div class="project-name">${escapeHtml(project.name)}</div>
                         <div class="project-meta">
-                            ${formatDate(project.created)} &mdash; ${escapeHtml(project.status)}
+                            <div class="project-meta-line">Created: ${formatDate(project.created)}</div>
+                            <div class="project-meta-line">Last updated: ${formatDate(lastUpdated)} (${formatTimestamp(lastUpdated)})</div>
+                            <div class="project-meta-line">Status: <span class="status ${statusClass}">${escapeHtml(project.status)}</span></div>
                         </div>
                     `;
 
@@ -185,6 +227,19 @@
             }
         }
 
+        function getStatusClass(status) {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('active') || statusLower.includes('complete')) {
+                return 'status-active';
+            } else if (statusLower.includes('development') || statusLower.includes('progress')) {
+                return 'status-development';
+            } else if (statusLower.includes('planning')) {
+                return 'status-planning';
+            } else {
+                return 'status-archived';
+            }
+        }
+
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', {
@@ -192,6 +247,29 @@
                 month: 'long',
                 day: 'numeric'
             });
+        }
+
+        function formatTimestamp(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            if (diffMins < 60) {
+                return diffMins === 1 ? '1 minute ago' : `${diffMins} minutes ago`;
+            } else if (diffHours < 24) {
+                return diffHours === 1 ? '1 hour ago' : `${diffHours} hours ago`;
+            } else if (diffDays < 30) {
+                return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`;
+            } else {
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
         }
 
         function escapeHtml(text) {
