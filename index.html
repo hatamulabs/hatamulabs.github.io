@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatamu Labs - Next-Gen Automated Software Building</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        main {
+            padding: 60px 40px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .about-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .project-name {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-meta-item strong {
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-development {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-archived {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            header, main {
+                padding: 40px 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hatamu Labs</h1>
+            <p class="tagline">Building the Future, Publicly and Rapidly</p>
+        </header>
+
+        <main>
+            <section id="about">
+                <h2>About Us</h2>
+                <div class="about-content">
+                    <p>
+                        Hatamu Labs is a next-generation automated software building laboratory where we
+                        build publicly and rapidly with AI. We're experimenting with new ways of creating
+                        software, pushing the boundaries of what's possible when human creativity meets
+                        artificial intelligence.
+                    </p>
+                    <p style="margin-top: 15px;">
+                        Our mission is to explore, innovate, and share our learnings with the world.
+                        Every project is an experiment, every line of code a step into the future of
+                        software development.
+                    </p>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>Our Projects</h2>
+                <div id="projects-container" class="loading">
+                    Loading projects...
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Hatamu Labs. Building the future with AI.</p>
+        </footer>
+    </div>
+
+    <script>
+        async function loadProjects() {
+            try {
+                const response = await fetch('projects.json');
+                const projects = await response.json();
+
+                const container = document.getElementById('projects-container');
+
+                if (projects.length === 0) {
+                    container.innerHTML = '<p class="loading">No projects yet. Stay tuned!</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                container.className = 'projects-grid';
+
+                projects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+
+                    const statusClass = getStatusClass(project.status);
+
+                    card.innerHTML = `
+                        <div class="project-name">${escapeHtml(project.name)}</div>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <strong>Created:</strong> ${formatDate(project.created)}
+                            </div>
+                            <div class="project-meta-item">
+                                <strong>Status:</strong>
+                                <span class="status-badge ${statusClass}">${escapeHtml(project.status)}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                document.getElementById('projects-container').innerHTML =
+                    '<p class="loading">Error loading projects. Please try again later.</p>';
+            }
+        }
+
+        function getStatusClass(status) {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes('active') || statusLower.includes('complete')) {
+                return 'status-active';
+            } else if (statusLower.includes('development') || statusLower.includes('progress')) {
+                return 'status-development';
+            } else {
+                return 'status-archived';
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load projects when page loads
+        loadProjects();
+    </script>
+</body>
+</html>

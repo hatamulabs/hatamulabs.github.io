@@ -1,0 +1,19 @@
+{
+  "name": "hatamulabs-homepage",
+  "version": "1.0.0",
+  "description": "Hatamu Labs static homepage showcasing AI-driven software projects",
+  "main": "generate-projects.js",
+  "scripts": {
+    "build": "node generate-projects.js",
+    "prebuild": "echo 'Generating projects list...'",
+    "postbuild": "echo 'Build complete!'"
+  },
+  "keywords": [
+    "ai",
+    "automation",
+    "static-site",
+    "github-pages"
+  ],
+  "author": "Hatamu Labs",
+  "license": "MIT"
+}
