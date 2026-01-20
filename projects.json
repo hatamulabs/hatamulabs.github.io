@@ -1,14 +1,14 @@
 [
   {
     "name": "nobam",
-    "description": "No Code Billing and API Metering - A drop-in solution for API builders who want to focus on their product instead of ...",
+    "description": "No Code Billing and API Metering - A drop-in solution for API...",
     "created": "2026-01-20T12:53:44+08:00",
     "lastUpdated": "2026-01-20T12:53:44+08:00",
     "status": "In Development"
   },
   {
     "name": "flow-matching-mnist",
-    "description": "A simple flow matching implementation for MNIST digit generation using PyTorch.",
+    "description": "A simple flow matching implementation for MNIST digit generation...",
     "created": "2026-01-20T12:22:44+08:00",
     "lastUpdated": "2026-01-20T12:22:44+08:00",
     "status": "In Development"
@@ -22,7 +22,7 @@
   },
   {
     "name": "haha-generator",
-    "description": "A fun web application that generates random amounts of \"ha\" syllables when you click a button.",
+    "description": "A fun web application that generates random amounts of \"ha\"...",
     "created": "2026-01-20T11:46:46+08:00",
     "lastUpdated": "2026-01-20T11:46:46+08:00",
     "status": "In Development"
