@@ -5,5 +5,12 @@
     "created": "2026-01-20T12:53:44+08:00",
     "lastUpdated": "2026-01-20T15:43:07+08:00",
     "status": "In Development"
+  },
+  {
+    "name": "Plutonium",
+    "description": "A SkyPilot-based ML training orchestration system built on PyTorch Lightning and Hydra. Cloud-agnostic infrastructure for running ML experiments on AWS, GCP, and Azure with Docker and automatic resource management.",
+    "created": "2026-01-21T12:00:00+08:00",
+    "lastUpdated": "2026-01-21T16:17:00+08:00",
+    "status": "In Development"
   }
 ]
