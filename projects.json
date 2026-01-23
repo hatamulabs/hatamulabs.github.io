@@ -1,13 +1,5 @@
 [
   {
-    "name": "nobam",
-    "description": "No Code Billing and API Metering - A drop-in solution for API",
-    "created": "2026-01-20T12:53:44+08:00",
-    "lastUpdated": "2026-01-21T16:16:39+08:00",
-    "status": "In development",
-    "type": "product"
-  },
-  {
     "name": "real-time-voice-chat",
     "description": "With experiments on chatterbox-streaming and polling LLMs.",
     "created": "2025-04-19T23:16:48+02:00",
