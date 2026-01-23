@@ -12,8 +12,16 @@ This static website showcases Hatamu Labs' mission and projects. It's built to:
 ## Structure
 
 - `index.html` - The main homepage with About and Projects sections
+- `blogs.html` - Blog listing page
+- `blog.html` - Individual blog post viewer with markdown rendering
 - `generate-projects.js` - Node.js script that scans the Fabricator projects directory
-- `projects.json` - Generated file containing project metadata (name, creation date, status)
+- `generate-blogs.js` - Node.js script that processes blog drafts and publishes them
+- `projects.json` - Generated file containing project metadata (name, creation date, status, type)
+- `blogs.json` - Generated file containing blog post metadata
+- `blogs/` - Published blog posts (markdown files)
+- `drafts/` - Draft content for manual editing
+  - `drafts/blogs/` - Blog post drafts (markdown files)
+  - `drafts/content/` - Content drafts for sections like About (markdown files)
 - `package.json` - Build configuration
 
 ## How It Works
@@ -28,13 +36,73 @@ This static website showcases Hatamu Labs' mission and projects. It's built to:
 
 ## Building
 
+### Regenerate Projects List
+
 Run the build script to regenerate the projects list:
 
 ```bash
 npm run build
+# or
+node generate-projects.js
 ```
 
 This will scan all projects and update `projects.json`.
+
+### Publish Blog Posts
+
+To publish blog posts from drafts:
+
+```bash
+node generate-blogs.js
+```
+
+This will:
+1. Read all `.md` files from `drafts/blogs/`
+2. Extract metadata (title, date, excerpt)
+3. Copy to `blogs/` directory
+4. Generate `blogs.json` with blog metadata
+
+## Writing Blog Posts
+
+1. Create a new markdown file in `drafts/blogs/`, e.g., `my-first-post.md`
+2. Add frontmatter and content:
+
+```markdown
+---
+title: My First Post
+date: 2026-01-23
+---
+
+# My First Post
+
+Your content here...
+```
+
+3. Run `node generate-blogs.js` to publish
+4. Commit and push to deploy
+
+### Frontmatter Options
+
+- `title`: Blog post title (required, or will use first heading)
+- `date`: Publication date in YYYY-MM-DD format (defaults to current date)
+
+### Markdown Support
+
+The blog system supports:
+- Headings, paragraphs, lists
+- **Bold** and *italic* text
+- `inline code` and code blocks
+- Links and images
+- Blockquotes
+- And all standard markdown features
+
+## Editing Content
+
+You can manually edit content sections by creating markdown files in `drafts/content/`:
+
+- `about.md` - Update the About section content
+
+These can be used as reference or for future content management features.
 
 ## Deployment
 
