@@ -3,14 +3,24 @@
     "name": "nobam",
     "description": "No Code Billing and API Metering - A drop-in solution for API",
     "created": "2026-01-20T12:53:44+08:00",
-    "lastUpdated": "2026-01-20T15:43:07+08:00",
-    "status": "In Development"
+    "lastUpdated": "2026-01-21T16:16:39+08:00",
+    "status": "Active",
+    "type": "product"
   },
   {
-    "name": "Plutonium",
-    "description": "A SkyPilot-based ML training orchestration system built on PyTorch Lightning and Hydra. Cloud-agnostic infrastructure for running ML experiments on AWS, GCP, and Azure with Docker and automatic resource management.",
-    "created": "2026-01-21T12:00:00+08:00",
-    "lastUpdated": "2026-01-21T16:17:00+08:00",
-    "status": "In Development"
+    "name": "real-time-voice-chat",
+    "description": "With experiments on chatterbox-streaming and polling LLMs.",
+    "created": "2025-04-19T23:16:48+02:00",
+    "lastUpdated": "2025-09-05T12:03:45+08:00",
+    "status": "Archived",
+    "type": "research"
+  },
+  {
+    "name": "plutonium",
+    "description": "![python](https://github.com/pre-commit/pre-commit)",
+    "created": "2020-11-04T15:30:10+01:00",
+    "lastUpdated": "2026-01-21T16:17:52+08:00",
+    "status": "Active",
+    "type": "research"
   }
 ]

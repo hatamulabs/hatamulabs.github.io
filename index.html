@@ -16,7 +16,7 @@
             line-height: 1.7;
             color: #000;
             background: #fff;
-            max-width: 720px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
             min-height: 100vh;
@@ -71,14 +71,29 @@
             color: #0066cc;
         }
 
-        .project {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #eee;
+        #projects-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
-        .project:last-child {
-            border-bottom: none;
+        @media (min-width: 768px) {
+            #projects-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .project {
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .project:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .project-name {
@@ -130,6 +145,32 @@
         .status-planning {
             background: #d1ecf1;
             color: #0c5460;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+        .type-research {
+            background: #e7d4f5;
+            color: #5a2c7a;
+        }
+
+        .type-product {
+            background: #d4f0f5;
+            color: #1a5a6a;
+        }
+
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
         }
 
         .loading {
@@ -223,6 +264,8 @@
                     const statusClass = getStatusClass(project.status);
                     const lastUpdated = project.lastUpdated || project.created;
                     const description = project.description || 'No description available.';
+                    const projectType = project.type || 'product';
+                    const typeClass = projectType === 'research' ? 'type-research' : 'type-product';
 
                     div.innerHTML = `
                         <div class="project-name">${escapeHtml(project.name)}</div>
@@ -230,7 +273,10 @@
                         <div class="project-meta">
                             <div class="project-meta-line">Created: ${formatDate(project.created)}</div>
                             <div class="project-meta-line">Last updated: ${formatDate(lastUpdated)} (${formatGMTTimestamp(lastUpdated)})</div>
-                            <div class="project-meta-line">Status: <span class="status ${statusClass}">${escapeHtml(project.status)}</span></div>
+                            <div class="project-meta-line badges-container">
+                                <span class="status ${statusClass}">${escapeHtml(project.status)}</span>
+                                <span class="type-badge ${typeClass}">${escapeHtml(projectType)}</span>
+                            </div>
                         </div>
                     `;
 

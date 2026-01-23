@@ -143,6 +143,54 @@ function getGitLastUpdatedDate(projectPath) {
     }
 }
 
+function getProjectType(projectPath) {
+    try {
+        // Check README.md for keywords that indicate project type
+        const readmePath = path.join(projectPath, 'README.md');
+        if (!fs.existsSync(readmePath)) {
+            return 'product';
+        }
+
+        const content = fs.readFileSync(readmePath, 'utf-8').toLowerCase();
+
+        // Research indicators
+        const researchKeywords = [
+            'research', 'experiment', 'prototype', 'exploration',
+            'proof of concept', 'poc', 'study', 'analysis',
+            'investigation', 'test', 'trial', 'evaluation'
+        ];
+
+        // Product indicators
+        const productKeywords = [
+            'production', 'app', 'application', 'service',
+            'platform', 'tool', 'system', 'api', 'website',
+            'dashboard', 'solution'
+        ];
+
+        // Count occurrences of each type
+        let researchScore = 0;
+        let productScore = 0;
+
+        for (const keyword of researchKeywords) {
+            if (content.includes(keyword)) {
+                researchScore++;
+            }
+        }
+
+        for (const keyword of productKeywords) {
+            if (content.includes(keyword)) {
+                productScore++;
+            }
+        }
+
+        // Default to product unless research indicators are stronger
+        return researchScore > productScore ? 'research' : 'product';
+    } catch (error) {
+        console.warn(`Could not determine type for ${projectPath}`);
+        return 'product';
+    }
+}
+
 function scanProjects() {
     const projects = [];
 
@@ -172,13 +220,15 @@ function scanProjects() {
             const lastUpdated = getGitLastUpdatedDate(projectPath);
             const status = getProjectStatus(projectPath);
             const description = getProjectDescription(projectPath);
+            const type = getProjectType(projectPath);
 
             projects.push({
                 name: projectName,
                 description: description,
                 created: created,
                 lastUpdated: lastUpdated,
-                status: status
+                status: status,
+                type: type
             });
         }
 
