@@ -4,7 +4,7 @@
     "description": "No Code Billing and API Metering - A drop-in solution for API",
     "created": "2026-01-20T12:53:44+08:00",
     "lastUpdated": "2026-01-21T16:16:39+08:00",
-    "status": "Active",
+    "status": "In development",
     "type": "product"
   },
   {
@@ -12,15 +12,15 @@
     "description": "With experiments on chatterbox-streaming and polling LLMs.",
     "created": "2025-04-19T23:16:48+02:00",
     "lastUpdated": "2025-09-05T12:03:45+08:00",
-    "status": "Archived",
+    "status": "In development",
     "type": "research"
   },
   {
     "name": "plutonium",
-    "description": "![python](https://github.com/pre-commit/pre-commit)",
+    "description": "Distributed ML training orchestration platform with SkyPilot integration",
     "created": "2020-11-04T15:30:10+01:00",
     "lastUpdated": "2026-01-21T16:17:52+08:00",
-    "status": "Active",
+    "status": "In development",
     "type": "research"
   }
 ]
