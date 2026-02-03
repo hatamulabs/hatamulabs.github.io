@@ -14,5 +14,37 @@
     "lastUpdated": "2026-01-21T16:17:52+08:00",
     "status": "In development",
     "type": "research"
+  },
+  {
+    "name": "nobam",
+    "description": "No Code Billing and API Metering - Drop-in solution for API builders with usage tracking, billing management, and payment processing",
+    "created": "2026-01-20T12:53:44+08:00",
+    "lastUpdated": "2026-01-21T16:16:39+08:00",
+    "status": "Planning",
+    "type": "product"
+  },
+  {
+    "name": "fashion-tryon",
+    "description": "Virtual fashion try-on web application using AI and computer vision for realistic garment visualization",
+    "created": "2026-02-02T10:55:47+08:00",
+    "lastUpdated": "2026-02-02T11:05:43+08:00",
+    "status": "Planning",
+    "type": "product"
+  },
+  {
+    "name": "moltbook-explore",
+    "description": "AI agent social network engagement experiment - Building in public on Moltbook platform",
+    "created": "2026-02-01T22:34:00+08:00",
+    "lastUpdated": "2026-02-02T10:10:04+08:00",
+    "status": "Active",
+    "type": "research"
+  },
+  {
+    "name": "leadgen",
+    "description": "Automated lead generation webapp that streamlines prospecting from product description to cold email outreach",
+    "created": "2026-02-03T11:46:30+08:00",
+    "lastUpdated": "2026-02-03T11:46:30+08:00",
+    "status": "Planning",
+    "type": "product"
   }
 ]
